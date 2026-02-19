@@ -27,7 +27,7 @@ public class Main {
         System.out.println("Test Connection) DBConnection.getConnection()");
         try (Connection conn = DBConnection.getConnection()) {
             if (conn != null && !conn.isClosed()) {
-                System.out.println("PASS: Connexion réussie à " + conn.getMetaData().getURL());
+                System.out.println("PASS: Successfully connected to " + conn.getMetaData().getURL());
             }
         } catch (Exception e) {
             System.out.println("FAIL: " + e.getMessage());

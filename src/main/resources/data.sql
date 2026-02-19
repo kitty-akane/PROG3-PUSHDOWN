@@ -113,17 +113,4 @@ FROM invoice i
 JOIN invoice_line il ON il.invoice_id = i.id
 CROSS JOIN tax_config tc
 WHERE tc.label = 'TVA STANDARD';
--- Q5-B : Chiffre d'affaires TTC pondéré
-SELECT SUM(
-    il.quantity * il.unit_price * (1 + tc.rate / 100) *
-    CASE i.status
-        WHEN 'PAID'      THEN 1.00
-        WHEN 'CONFIRMED' THEN 0.50
-        WHEN 'DRAFT'     THEN 0.00
-        ELSE 0.00
-    END
-) AS weighted_turnover_ttc
-FROM invoice i
-JOIN invoice_line il ON il.invoice_id = i.id
-CROSS JOIN tax_config tc
-WHERE tc.label = 'TVA STANDARD';
+

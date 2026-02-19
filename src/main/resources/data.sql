@@ -86,19 +86,6 @@ WHERE tc.label = 'TVA STANDARD'
 GROUP BY i.id
 ORDER BY i.id ASC;
 
--- Q5-A : Totaux HT, TVA et TTC par facture
-SELECT
-    i.id,
-    SUM(il.quantity * il.unit_price) AS ht,
-    SUM(il.quantity * il.unit_price * tc.rate / 100) AS tva,
-    SUM(il.quantity * il.unit_price * (1 + tc.rate / 100)) AS ttc
-FROM invoice i
-JOIN invoice_line il ON il.invoice_id = i.id
-CROSS JOIN tax_config tc
-WHERE tc.label = 'TVA STANDARD'
-GROUP BY i.id
-ORDER BY i.id ASC;
-
 -- Q5-B : Chiffre d'affaires TTC pondéré
 SELECT SUM(
     il.quantity * il.unit_price * (1 + tc.rate / 100) *
